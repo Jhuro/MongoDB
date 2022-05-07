@@ -63,16 +63,6 @@ public class CompetitorService {
         List<Competitor> competitors = query.setParameter("name", name).getResultList();
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(competitors).build();
     }
-    
-    @GET
-    @Path("/productos")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductos() {
-
-        Query q = entityManager.createQuery("select u.producto from Competitor u order by u.surname ASC");
-        List<Competitor> competitors = q.getResultList();
-        return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(competitors).build();
-    }
 
     @POST
     @Path("/añadir")
