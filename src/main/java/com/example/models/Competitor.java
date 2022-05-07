@@ -40,7 +40,7 @@ public class Competitor implements Serializable {
     @Id
     @GeneratedValue
     @Field(name = "_id")
-    private Long id;
+    private String id;
 
     @NotNull
     @Column(name = "create_at", updatable = false)
@@ -73,6 +73,9 @@ public class Competitor implements Serializable {
     @Embedded
     private Vehicle vehicle;
 
+    @Embedded
+    private Producto producto;
+    
     public Competitor() {
 
     }
@@ -87,11 +90,11 @@ public class Competitor implements Serializable {
         this.createdAt = this.updatedAt = Calendar.getInstance();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -174,4 +177,12 @@ public class Competitor implements Serializable {
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    } 
 }

@@ -8,6 +8,7 @@ package com.example.services;
 import com.example.PersistenceManager;
 import com.example.models.Competitor;
 import com.example.models.CompetitorDTO;
+import com.example.models.Producto;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -62,9 +63,19 @@ public class CompetitorService {
         List<Competitor> competitors = query.setParameter("name", name).getResultList();
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(competitors).build();
     }
+    
+    @GET
+    @Path("/productos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProductos() {
+
+        Query q = entityManager.createQuery("select u.producto from Competitor u order by u.surname ASC");
+        List<Competitor> competitors = q.getResultList();
+        return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(competitors).build();
+    }
 
     @POST
-    @Path("/vehicle")
+    @Path("/añadir")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createCompetitor(CompetitorDTO competitor) {
         Competitor c = new Competitor();
@@ -78,6 +89,7 @@ public class CompetitorService {
         c.setSurname(competitor.getSurname());
         c.setTelephone(competitor.getTelephone());
         c.setVehicle(competitor.getVehicle());
+        c.setProducto(competitor.getProducto());
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(c);
